@@ -10,11 +10,11 @@ while True:
 
     if value == "1":
         print() # пустая строка
-        client_add()
+        client_read()
         print() # пустая строка
     elif value == "2":
         print() # пустая строка
-        client_read()
+        client_add()
         print() # пустая строка
     elif value == "3":
         print() # пустая строка
