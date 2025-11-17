@@ -1,1 +1,7 @@
+# Виртуальные среды Python
 venv/
+env/
+.venv/
+venv*/
+env*/
+.env*/
