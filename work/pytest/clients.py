@@ -16,10 +16,17 @@ def client_read():
 
 def client_add():
     print("Добавление клиента 👨‍👧\n")
-    user_last_id = len(client_list)+1
+
+    user_last_id = len(client_list) + 1
     user_name = input("Имя: ")
     user_phone = input("Номер телефона: ")
     user_telegram = input("Телеграм: ")
+
+    for client in client_list:
+        if client[2] == user_phone:
+            print(f"{client[1]} уже есть в базе")
+            return
+      
     client_list.append([
         user_last_id,
         user_name,
