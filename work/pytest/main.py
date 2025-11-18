@@ -21,4 +21,5 @@ while True:
         client_remove()
         print() # пустая строка
     else:
+        print("Выход из программы 👋")
         break
