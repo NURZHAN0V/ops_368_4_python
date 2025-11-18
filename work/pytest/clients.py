@@ -39,8 +39,58 @@ def client_remove():
     print("Удаление клиента 👤\n")
     user_id_remove = int(input("Введите ID клиента: "))
     user_name_remove = ""
+
     for client in client_list:
         if client[0] == user_id_remove:
             client_list.remove(client)
             user_name_remove = client[1]
             print(f"Клиент {user_name_remove} был удален ❌")
+            return
+    
+    print("Такого клиента нет в базе")
+
+def client_edit():
+    user = []
+    user_id = int(input("Введите ID клиента: "))
+
+    for client in client_list:
+        if client[0] == user_id:
+            user = client
+            break
+
+    if len(user) > 0:
+        user_index = client_list.index(user)
+
+        print(
+            "1 - изменить имя\n"
+            "2 - изменить номер телефона\n"
+            "3 - изменить телеграм\n"
+        )
+        value = input("Вы: ")
+        print() # пустая строка
+        if value == "1":
+            client_list[user_index] = [
+                user[0],
+                input("Имя: "),
+                user[2],
+                user[3]
+            ]
+        elif value == "2":
+            client_list[user_index] = [
+                user[0],
+                user[1],
+                input("Телефон: "),
+                user[3]
+            ]
+        elif value == "3":
+            client_list[user_index] = [
+                user[0],
+                user[1],
+                user[2],
+                input("Телеграм: ")
+            ]
+        else:
+            print("Команда не распознана 🤖")
+            print("Попробуйте еще раз\n")
+    else:
+        print("Такого киента нет в базе")
