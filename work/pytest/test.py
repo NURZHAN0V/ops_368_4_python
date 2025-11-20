@@ -1,11 +1,5 @@
-matrix = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [3, 5, 10]
-]
+from clients import *
 
-# вывести те списки из `matrix` в которых второе число равно пяти через цикл for, результат:
+client_list.append(Client(id = 1, name = "Иван", phone = "+7 996 564 87 89", telegram = "@ivenivanov"))
 
-# [4, 5, 6]
-# [3, 5, 10]
+print(client_list[3].name)

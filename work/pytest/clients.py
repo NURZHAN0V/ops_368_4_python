@@ -1,19 +1,25 @@
-client_list = [
-    [1, "Олег", "+7 993 565 45 78", "@olegnastyle"],
-    [2, "Дмитрий", "+7 993 657 45 78", "@dima"],
-    [3, "Владимир", "+7 993 897 45 78", "@vova"]
-]
+class Client:
+    def __init__(self, id, name, phone, telegram):
+        self.id = id
+        self.name = name
+        self.phone = phone
+        self.telegram = telegram
 
+# пример: [1, "Олег", "+7 993 565 45 78", "@olegnastyle"]
+client_list = []
+
+# посмотреть всех клиентов
 def client_read():
     print("Список клиентов:👯\n")
     for client in client_list:
         print(
-            f"ID: {client[0]}\n"
-            f"Имя: {client[1]}\n"
-            f"Телефон: {client[2]}\n"
-            f"Телеграм: {client[3]}\n"
+            f"ID: {client.id}\n"
+            f"Имя: {client.name}\n"
+            f"Телефон: {client.phone}\n"
+            f"Телеграм: {client.telegram}\n"
         )
 
+# добавить клиента
 def client_add():
     print("Добавление клиента 👨‍👧\n")
 
@@ -23,32 +29,29 @@ def client_add():
     user_telegram = input("Телеграм: ")
 
     for client in client_list:
-        if client[2] == user_phone:
-            print(f"{client[1]} уже есть в базе")
+        if client.phone == user_phone:
+            print(f"{client.name} уже есть в базе")
             return
-      
-    client_list.append([
-        user_last_id,
-        user_name,
-        user_phone,
-        user_telegram
-    ])
+
+    client_list.append(Client(id = user_last_id,name = user_name,phone = user_phone,telegram = user_telegram))
     print(f"Клиент {user_name} был добавлен ✔️")
 
+# удалить клиента
 def client_remove():
     print("Удаление клиента 👤\n")
     user_id_remove = int(input("Введите ID клиента: "))
     user_name_remove = ""
 
     for client in client_list:
-        if client[0] == user_id_remove:
+        if client.id == user_id_remove:
             client_list.remove(client)
-            user_name_remove = client[1]
+            user_name_remove = client.name
             print(f"Клиент {user_name_remove} был удален ❌")
             return
-    
+
     print("Такого клиента нет в базе")
 
+# редактирование клиента
 def client_edit():
     user = []
     user_id = int(input("Введите ID клиента: "))
