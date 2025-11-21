@@ -11,16 +11,18 @@ client_list = []
 # посмотреть всех клиентов
 def client_read():
     print("Список клиентов:👯\n")
+    clients = []
     for client in client_list:
-        print(
+        clients.append([
             f"ID: {client.id}\n"
             f"Имя: {client.name}\n"
             f"Телефон: {client.phone}\n"
             f"Телеграм: {client.telegram}\n"
-        )
+        ])
+    return clients
 
 # добавить клиента
-def client_add():
+def client_add(new_client):
     print("Добавление клиента 👨‍👧\n")
 
     user_last_id = len(client_list) + 1
@@ -53,17 +55,16 @@ def client_remove():
 
 # редактирование клиента
 def client_edit():
-    user = []
+    user = None
     user_id = int(input("Введите ID клиента: "))
 
+    # проверяем на существование
     for client in client_list:
-        if client[0] == user_id:
+        if client.id == user_id:
             user = client
             break
 
-    if len(user) > 0:
-        user_index = client_list.index(user)
-
+    if user:
         print(
             "1 - изменить имя\n"
             "2 - изменить номер телефона\n"
@@ -72,26 +73,11 @@ def client_edit():
         value = input("Вы: ")
         print() # пустая строка
         if value == "1":
-            client_list[user_index] = [
-                user[0],
-                input("Имя: "),
-                user[2],
-                user[3]
-            ]
+            user.name = input("Имя: ")
         elif value == "2":
-            client_list[user_index] = [
-                user[0],
-                user[1],
-                input("Телефон: "),
-                user[3]
-            ]
+            user.phone = input("Телефон: ")
         elif value == "3":
-            client_list[user_index] = [
-                user[0],
-                user[1],
-                user[2],
-                input("Телеграм: ")
-            ]
+            user.telegram = input("Телеграм: ")
         else:
             print("Команда не распознана 🤖")
             print("Попробуйте еще раз\n")
