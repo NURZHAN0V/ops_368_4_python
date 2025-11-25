@@ -10,33 +10,34 @@ client_list = []
 
 # посмотреть всех клиентов
 def client_read():
-    print("Список клиентов:👯\n")
     clients = []
     for client in client_list:
-        clients.append([
+        clients.append(
             f"ID: {client.id}\n"
             f"Имя: {client.name}\n"
             f"Телефон: {client.phone}\n"
             f"Телеграм: {client.telegram}\n"
-        ])
+        )
     return clients
 
 # добавить клиента
 def client_add(new_client):
-    print("Добавление клиента 👨‍👧\n")
-
+    # получаем новый ID пользователя
     user_last_id = len(client_list) + 1
-    user_name = input("Имя: ")
-    user_phone = input("Номер телефона: ")
-    user_telegram = input("Телеграм: ")
 
     for client in client_list:
-        if client.phone == user_phone:
+        if client.phone == new_client[1]:
             print(f"{client.name} уже есть в базе")
             return
 
-    client_list.append(Client(id = user_last_id,name = user_name,phone = user_phone,telegram = user_telegram))
-    print(f"Клиент {user_name} был добавлен ✔️")
+    client_list.append(Client(
+        id = user_last_id,
+        name = new_client[0],
+        phone = new_client[1],
+        telegram = new_client[2]
+    ))
+
+    print(f"Клиент {new_client[1]} был добавлен ✔️")
 
 # удалить клиента
 def client_remove():
