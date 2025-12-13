@@ -12,22 +12,68 @@ def send_welcome(message):
 @bot.message_handler(commands=['clients'])
 def send_clients(message):
     clients = client_read()
-    for client in clients:
-        bot.reply_to(message, client)
 
-# `/new_client Олег,+7 993 907 98 29,@olegnastyle`
+    if len(clients) > 0:
+        bot.reply_to(message, clients)
+    else:
+        bot.reply_to(message, "База пуста")
+
+user_sessions = {
+    "status": False,
+    "manager_id": None,
+    "name": "",
+    "phone": "",
+    "telegram": ""
+}
 @bot.message_handler(commands=['new_client'])
-def send_clients(message):
-    client = message.text
-    new_client = client[12:].split(',')
+def add_client(message):
+    user_sessions["status"] = True
+    user_sessions["manager_id"] = message.from_user.id
+    bot.reply_to(message, "Напиши имя клиента 🙏")
 
-    client_add(new_client)
-    bot.reply_to(message, "Клиент добавлен!")
+@bot.message_handler(func=lambda msg: user_sessions["status"] and msg.from_user.id == user_sessions["manager_id"])
+def handle_client_input(message):
+    print(
+        "Вызов функции: "
+        f"{user_sessions["name"]}, "
+        f"{user_sessions["phone"]}, "
+        f"{user_sessions["telegram"]}\n"
+    )
+    if user_sessions["name"] == "":
+        user_sessions["name"] = message.text.strip()
+        print(user_sessions["status"], user_sessions["manager_id"])
+        bot.reply_to(message, "Напиши номер телефона 🙏")
+    elif user_sessions["phone"] == "":
+        user_sessions["phone"] = message.text.strip()
+        bot.reply_to(message, "Напиши телеграм 🙏")
+    elif user_sessions["telegram"] == "":
+        user_sessions["telegram"] = message.text.strip()
+
+        response = client_add(
+            user_sessions["name"],
+            user_sessions["phone"],
+            user_sessions["telegram"]
+        )
+
+        if response:
+            bot.reply_to(message, "Пользователь добавлен")
+        else:
+            bot.reply_to(message, "Такой пользователь уже есть")
+        
+        user_sessions = {
+            "status": False,
+            "manager_id": None,
+            "name": "",
+            "phone": "",
+            "telegram": ""
+        }
 
 
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    bot.reply_to(message, message.text)
+    bot.reply_to(message, user_sessions)
+
+
 # status_auth = login()
 
 # if status_auth:
