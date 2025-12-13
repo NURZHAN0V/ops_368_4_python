@@ -18,9 +18,7 @@ def client_read():
             f"Телефон: {client.phone}\n"
             f"Телеграм: {client.telegram}\n"
         )
-
-    return clients
-
+        
 # добавить клиента
 def client_add(name, phone, telegram):
     user_last_id = len(client_list) + 1
@@ -37,7 +35,6 @@ def client_add(name, phone, telegram):
     ))
     
     return True
-
 # удалить клиента
 def client_remove():
     print("Удаление клиента 👤\n")

@@ -1,1 +1,6 @@
-TELEGRAM_TOKEN = "7047199392:AAFAQ3J7TAcdCH965AjHh360C4qo6Ur2II4"
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
+
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")

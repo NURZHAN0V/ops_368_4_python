@@ -68,12 +68,9 @@ def handle_client_input(message):
             "telegram": ""
         }
 
-
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    bot.reply_to(message, user_sessions)
-
-
+    bot.reply_to(message, message.text)
 # status_auth = login()
 
 # if status_auth:
